@@ -37,6 +37,30 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${plusJakarta.variable}`}>
       <body className="min-h-screen antialiased">
+        {/*
+          Hidden form — server-rendered so Netlify's build bot detects it.
+          The actual submission is done via fetch() in ContactForm.tsx.
+          DO NOT remove this.
+        */}
+        <form
+          name="contact"
+          data-netlify="true"
+          data-netlify-honeypot="bot-field"
+          hidden
+          aria-hidden="true"
+        >
+          <input type="hidden" name="form-name" value="contact" />
+          <input type="text"  name="bot-field" />
+          <input type="text"  name="from_name" />
+          <input type="tel"   name="phone" />
+          <input type="email" name="email" />
+          <input type="text"  name="pickup" />
+          <input type="text"  name="destination" />
+          <input type="text"  name="service_type" />
+          <input type="date"  name="moving_date" />
+          <textarea           name="message" />
+        </form>
+
         <ClientMotionProvider>{children}</ClientMotionProvider>
       </body>
     </html>
