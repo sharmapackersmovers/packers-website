@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import {
   Home,
   Building2,
@@ -75,8 +75,8 @@ const containerVariants = {
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.35 } },
 };
 
 export default function ServicesSection() {
@@ -84,11 +84,11 @@ export default function ServicesSection() {
     <section className="py-20 md:py-28 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+        <m.div
+          initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.35 }}
           className="text-center mb-14"
         >
           <span className="inline-block text-electric-600 font-semibold text-sm tracking-wider uppercase bg-electric-50 px-4 py-1.5 rounded-full mb-4">
@@ -102,18 +102,18 @@ export default function ServicesSection() {
             From packing to delivery, we handle every aspect of your relocation
             with professional expertise and care.
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Service cards */}
-        <motion.div
+        <m.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={{ once: true, amount: 0.05 }}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {services.map((service) => (
-            <motion.div key={service.title} variants={cardVariants}>
+            <m.div key={service.title} variants={cardVariants}>
               <Link
                 href={service.href}
                 className="group block bg-white border border-slate-100 rounded-2xl p-6 card-hover hover:border-slate-200 h-full"
@@ -136,23 +136,23 @@ export default function ServicesSection() {
                   Learn More <ArrowRight className="w-3.5 h-3.5" />
                 </span>
               </Link>
-            </motion.div>
+            </m.div>
           ))}
-        </motion.div>
+        </m.div>
 
         {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+        <m.div
+          initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          transition={{ duration: 0.35, delay: 0.3 }}
           className="text-center mt-12"
         >
           <Link href="/services" className="btn-secondary">
             View All Services
             <ArrowRight className="w-4 h-4" />
           </Link>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

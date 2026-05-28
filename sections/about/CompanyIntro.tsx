@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { CheckCircle, Package } from "lucide-react";
 
 const highlights = [
@@ -18,11 +18,11 @@ export default function CompanyIntro() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left - Image placeholder */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.4 }}
             className="relative"
           >
             <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-navy-950 to-navy-800 aspect-[4/3] flex items-center justify-center">
@@ -54,14 +54,14 @@ export default function CompanyIntro() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Right - Content */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.4 }}
           >
             <span className="inline-block text-electric-600 font-semibold text-sm tracking-wider uppercase bg-electric-50 px-4 py-1.5 rounded-full mb-4">
               Our Story
@@ -91,7 +91,7 @@ export default function CompanyIntro() {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </section>

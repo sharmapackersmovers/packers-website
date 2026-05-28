@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import {
   CheckCircle,
   ArrowRight,
@@ -85,10 +85,10 @@ export default function ServiceDetailClient({ service }: { service: Service }) {
 
           <div className="grid lg:grid-cols-2 gap-10 items-center">
             <div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
+              <m.div
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.35 }}
               >
                 <div
                   className={`w-16 h-16 bg-gradient-to-br ${gradient} rounded-2xl flex items-center justify-center mb-5 shadow-xl`}
@@ -118,14 +118,14 @@ export default function ServiceDetailClient({ service }: { service: Service }) {
                     <Phone className="w-4 h-4" /> Call Now
                   </a>
                 </div>
-              </motion.div>
+              </m.div>
             </div>
 
             {/* Price card */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{ duration: 0.35, delay: 0.2 }}
               className="glass border border-white/10 rounded-3xl p-8"
             >
               <p className="text-white/50 text-sm mb-1">Starting from</p>
@@ -143,7 +143,7 @@ export default function ServiceDetailClient({ service }: { service: Service }) {
                   </div>
                 ))}
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </div>
 

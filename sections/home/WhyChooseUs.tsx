@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import {
   Shield,
   Package,
@@ -73,8 +73,8 @@ const containerVariants = {
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 25 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  hidden: { opacity: 0, y: 14 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.35 } },
 };
 
 export default function WhyChooseUs() {
@@ -83,11 +83,11 @@ export default function WhyChooseUs() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.4 }}
           >
             <span className="inline-block text-electric-600 font-semibold text-sm tracking-wider uppercase bg-electric-50 px-4 py-1.5 rounded-full mb-4">
               Why Choose Us
@@ -119,18 +119,18 @@ export default function WhyChooseUs() {
                 <p className="text-slate-500 text-sm mt-1">Damage Rate</p>
               </div>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Right grid */}
-          <motion.div
+          <m.div
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
+            viewport={{ once: true, amount: 0.05 }}
             className="grid grid-cols-1 sm:grid-cols-2 gap-4"
           >
             {features.map((feature) => (
-              <motion.div
+              <m.div
                 key={feature.title}
                 variants={itemVariants}
                 className={`bg-white rounded-2xl p-5 border ${feature.border} card-hover`}
@@ -146,9 +146,9 @@ export default function WhyChooseUs() {
                 <p className="text-slate-500 text-xs leading-relaxed">
                   {feature.description}
                 </p>
-              </motion.div>
+              </m.div>
             ))}
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </section>

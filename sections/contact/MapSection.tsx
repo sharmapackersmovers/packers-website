@@ -1,31 +1,31 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { MapPin, Navigation } from "lucide-react";
 
 export default function MapSection() {
   return (
     <section id="map" className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+        <m.div
+          initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.35 }}
           className="text-center mb-10"
         >
           <h2 className="text-2xl font-bold text-navy-900">Find Our Office</h2>
           <p className="text-slate-500 text-sm mt-2">
             123, Transport Nagar, Delhi - 110006
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Map placeholder */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+        <m.div
+          initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          transition={{ duration: 0.35, delay: 0.1 }}
           className="relative h-80 md:h-96 bg-gradient-to-br from-slate-100 to-slate-200 rounded-3xl overflow-hidden border border-slate-200 flex items-center justify-center"
         >
           {/* Fake map grid */}
@@ -62,7 +62,7 @@ export default function MapSection() {
               Get Directions
             </a>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

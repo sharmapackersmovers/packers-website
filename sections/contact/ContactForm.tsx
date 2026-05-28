@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import {
   Send,
   CheckCircle,
@@ -146,7 +146,7 @@ export default function ContactForm() {
     return (
       <section id="quote-form" className="py-20 section-gradient scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             className="max-w-lg mx-auto text-center bg-white rounded-3xl p-12 shadow-xl border border-slate-100"
@@ -183,7 +183,7 @@ export default function ContactForm() {
             >
               Submit Another Request
             </button>
-          </motion.div>
+          </m.div>
         </div>
       </section>
     );
@@ -194,11 +194,11 @@ export default function ContactForm() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-5 gap-10 items-start">
           {/* Left info */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.4 }}
             className="lg:col-span-2"
           >
             <span className="inline-block text-electric-600 font-semibold text-sm tracking-wider uppercase bg-electric-50 px-4 py-1.5 rounded-full mb-4">
@@ -232,14 +232,14 @@ export default function ContactForm() {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Form */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.4 }}
             className="lg:col-span-3"
           >
             <form
@@ -379,7 +379,7 @@ export default function ContactForm() {
                 your data.
               </p>
             </form>
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </section>

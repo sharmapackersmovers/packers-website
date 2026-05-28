@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Users, MapPin, Package, Award, Truck, Star } from "lucide-react";
 import { useCounterAnimation } from "@/hooks/useCounterAnimation";
 
@@ -22,7 +22,7 @@ function StatItem({ stat }: { stat: (typeof stats)[0] }) {
   });
 
   return (
-    <motion.div
+    <m.div
       ref={ref as React.RefObject<HTMLDivElement>}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -38,7 +38,7 @@ function StatItem({ stat }: { stat: (typeof stats)[0] }) {
         {stat.suffix}
       </div>
       <div className="text-white/50 text-sm">{stat.label}</div>
-    </motion.div>
+    </m.div>
   );
 }
 

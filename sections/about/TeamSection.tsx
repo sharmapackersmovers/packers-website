@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 function LinkedinIcon({ className }: { className?: string }) {
   return (
     <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -52,11 +52,11 @@ export default function TeamSection() {
   return (
     <section className="py-20 md:py-28 section-gradient">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+        <m.div
+          initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.35 }}
           className="text-center mb-14"
         >
           <span className="inline-block text-electric-600 font-semibold text-sm tracking-wider uppercase bg-electric-50 px-4 py-1.5 rounded-full mb-4">
@@ -70,16 +70,16 @@ export default function TeamSection() {
             Our experienced leadership team is passionate about delivering
             excellence in every relocation.
           </p>
-        </motion.div>
+        </m.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {team.map((member, i) => (
-            <motion.div
+            <m.div
               key={member.name}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
+              transition={{ duration: 0.35, delay: i * 0.1 }}
               className="bg-white rounded-2xl p-6 border border-slate-100 card-hover text-center group"
             >
               {/* Avatar */}
@@ -115,7 +115,7 @@ export default function TeamSection() {
                   <TwitterIcon className="w-3.5 h-3.5" />
                 </a>
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>

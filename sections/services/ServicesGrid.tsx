@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import {
   Home,
   Building2,
@@ -75,7 +75,7 @@ export default function ServicesGrid() {
 
         {/* Grid */}
         <AnimatePresence mode="wait">
-          <motion.div
+          <m.div
             key={activeCategory}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -88,9 +88,9 @@ export default function ServicesGrid() {
               const gradient = gradients[service.icon] || "from-blue-500 to-blue-700";
 
               return (
-                <motion.div
+                <m.div
                   key={service.id}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: i * 0.08 }}
                 >
@@ -140,10 +140,10 @@ export default function ServicesGrid() {
                       </Link>
                     </div>
                   </div>
-                </motion.div>
+                </m.div>
               );
             })}
-          </motion.div>
+          </m.div>
         </AnimatePresence>
       </div>
     </section>

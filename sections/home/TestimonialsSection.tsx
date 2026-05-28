@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import { testimonials } from "@/data/testimonials";
 
@@ -38,11 +38,11 @@ export default function TestimonialsSection() {
   return (
     <section className="py-20 md:py-28 section-gradient overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+        <m.div
+          initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.35 }}
           className="text-center mb-14"
         >
           <span className="inline-block text-electric-600 font-semibold text-sm tracking-wider uppercase bg-electric-50 px-4 py-1.5 rounded-full mb-4">
@@ -56,12 +56,12 @@ export default function TestimonialsSection() {
             Real stories from families and businesses who trusted us with their
             most precious belongings.
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Main testimonial */}
         <div className="relative max-w-3xl mx-auto mb-10">
           <AnimatePresence mode="wait" custom={direction}>
-            <motion.div
+            <m.div
               key={activeIndex}
               custom={direction}
               initial={{ opacity: 0, x: direction > 0 ? 60 : -60 }}
@@ -106,7 +106,7 @@ export default function TestimonialsSection() {
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </AnimatePresence>
         </div>
 
@@ -150,9 +150,9 @@ export default function TestimonialsSection() {
         {/* Grid of other testimonials */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-14">
           {testimonials.slice(0, 3).map((t, i) => (
-            <motion.div
+            <m.div
               key={t.id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.1 }}
@@ -173,7 +173,7 @@ export default function TestimonialsSection() {
                   <p className="text-slate-400 text-xs">{t.location}</p>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>

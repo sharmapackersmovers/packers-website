@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { Camera, ZoomIn, X } from "lucide-react";
 
 const categories = [
@@ -57,7 +57,7 @@ export default function GalleryContent() {
           }}
         />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -67,9 +67,9 @@ export default function GalleryContent() {
             <span className="text-white/90 text-sm font-medium">
               Real Moves, Real Stories
             </span>
-          </motion.div>
+          </m.div>
 
-          <motion.h1
+          <m.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
@@ -80,9 +80,9 @@ export default function GalleryContent() {
             <span className="bg-gradient-to-r from-electric-400 to-blue-300 bg-clip-text text-transparent">
               Pictures
             </span>
-          </motion.h1>
+          </m.h1>
 
-          <motion.p
+          <m.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -90,7 +90,7 @@ export default function GalleryContent() {
           >
             A glimpse into thousands of successful moves we&apos;ve completed
             across India.
-          </motion.p>
+          </m.p>
         </div>
 
         <div className="absolute bottom-0 left-0 right-0">
@@ -122,7 +122,7 @@ export default function GalleryContent() {
 
           {/* Masonry grid */}
           <AnimatePresence mode="wait">
-            <motion.div
+            <m.div
               key={activeCategory}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -131,7 +131,7 @@ export default function GalleryContent() {
               className="columns-1 sm:columns-2 lg:columns-3 gap-5 space-y-5"
             >
               {filtered.map((item, i) => (
-                <motion.div
+                <m.div
                   key={item.id}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -163,9 +163,9 @@ export default function GalleryContent() {
                       {item.category}
                     </div>
                   </button>
-                </motion.div>
+                </m.div>
               ))}
-            </motion.div>
+            </m.div>
           </AnimatePresence>
 
           {filtered.length === 0 && (
@@ -182,14 +182,14 @@ export default function GalleryContent() {
       {/* Lightbox */}
       <AnimatePresence>
         {lightbox && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
             onClick={() => setLightbox(null)}
           >
-            <motion.div
+            <m.div
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
@@ -216,8 +216,8 @@ export default function GalleryContent() {
               >
                 <X className="w-4 h-4 text-slate-700" />
               </button>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>
