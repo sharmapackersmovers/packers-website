@@ -153,7 +153,7 @@ export default function ContactForm() {
     setErrorMessage("");
 
     try {
-      const response = await fetch("/", {
+      const response = await fetch("/netlify-forms.html", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: encode({
@@ -169,7 +169,8 @@ export default function ContactForm() {
         }),
       });
 
-      if (response.ok) {
+      // Netlify returns 200 for AJAX form posts (fetch follows redirects by default)
+      if (response.ok || response.status === 303) {
         setStatus("success");
       } else {
         throw new Error(`Server responded with ${response.status}`);

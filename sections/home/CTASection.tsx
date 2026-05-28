@@ -6,9 +6,9 @@ import { ArrowRight, Phone, Shield, Star, Zap } from "lucide-react";
 
 export default function CTASection() {
   return (
-    <section className="py-20 md:py-28 bg-navy-950 relative overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 hero-gradient opacity-80" />
+    <section className="py-20 md:py-28 relative overflow-hidden">
+      {/* Background — same warm daytime gradient as hero */}
+      <div className="absolute inset-0 hero-gradient" />
       <div
         className="absolute inset-0 opacity-[0.03]"
         style={{
@@ -16,8 +16,8 @@ export default function CTASection() {
           backgroundSize: "40px 40px",
         }}
       />
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-electric-600/15 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl" />
+      <div className="absolute top-0 left-1/4 w-80 h-80 bg-white/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-orange-300/15 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {/* Badge */}

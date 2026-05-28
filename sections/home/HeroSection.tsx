@@ -1,179 +1,238 @@
-import Link from "next/link";
-import {
-  ArrowRight,
-  Phone,
-  Shield,
-  Star,
-  CheckCircle,
-  MapPin,
-  Truck,
-  Clock,
-} from "lucide-react";
+"use client";
 
-const trustBadges = [
-  { icon: Shield, text: "100% Insured" },
-  { icon: Star, text: "4.9 Rated" },
-  { icon: CheckCircle, text: "25K+ Happy Customers" },
+import Link from "next/link";
+import { useState } from "react";
+import { ArrowRight, Phone, MapPin, Shield, Star, CheckCircle2, Truck } from "lucide-react";
+import MovingTruck from "@/components/illustrations/MovingTruck";
+
+const SERVICES = [
+  "Home Relocation",
+  "Office Shifting",
+  "Car Transport",
+  "Bike Transport",
+  "Warehouse & Storage",
+  "Packing & Unpacking",
 ];
 
-const floatingCards = [
-  {
-    icon: MapPin,
-    title: "GPS Tracking",
-    sub: "Real-time updates",
-    color: "from-blue-500 to-blue-700",
-  },
-  {
-    icon: Truck,
-    title: "Safe Delivery",
-    sub: "Zero damage policy",
-    color: "from-teal-500 to-teal-700",
-  },
-  {
-    icon: Clock,
-    title: "On-Time Guarantee",
-    sub: "Always punctual",
-    color: "from-orange-500 to-orange-700",
-  },
+const CITIES = [
+  "Delhi", "Mumbai", "Bangalore", "Hyderabad", "Chennai",
+  "Kolkata", "Pune", "Ahmedabad", "Jaipur", "Lucknow",
+  "Chandigarh", "Indore", "Bhopal", "Nagpur", "Surat",
 ];
 
 export default function HeroSection() {
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
+  const [service, setService] = useState("");
+
+  const handleQuote = (e: React.FormEvent) => {
+    e.preventDefault();
+    const params = new URLSearchParams();
+    if (from) params.set("from", from);
+    if (to) params.set("to", to);
+    if (service) params.set("service", service);
+    window.location.href = `/contact#quote-form`;
+  };
+
   return (
-    <section className="relative min-h-screen hero-gradient flex items-center overflow-hidden">
-      {/* Background pattern */}
+    <section className="relative min-h-screen hero-gradient flex flex-col overflow-hidden">
+      {/* ── Subtle grid overlay ────────────────────────── */}
       <div
-        className="absolute inset-0 opacity-[0.04]"
+        className="absolute inset-0 opacity-[0.035] pointer-events-none"
         style={{
           backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
-          backgroundSize: "40px 40px",
+          backgroundSize: "36px 36px",
         }}
       />
-      {/* Gradient blobs */}
-      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-electric-600/20 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl" />
+      {/* ── Glow blobs ─────────────────────────────────── */}
+      <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-blue-600/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/3 left-1/3 w-60 h-60 bg-orange-500/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 md:pt-32 md:pb-20">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left — pure CSS animations, no JS needed */}
+      {/* ── Main content ───────────────────────────────── */}
+      <div className="relative flex-1 flex items-center max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-28 pb-10 md:pt-36 md:pb-12">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center w-full">
+
+          {/* ─────────────── LEFT COLUMN ──────────────── */}
           <div>
-            {/* Badge */}
-            <div className="animate-fade-in-up delay-0 inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/15 rounded-full px-4 py-1.5 mb-6">
+            {/* Verified badge */}
+            <div className="animate-fade-in-up delay-0 inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/15 rounded-full px-4 py-1.5 mb-5">
               <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
               <span className="text-white/90 text-sm font-medium">
-                Trusted by 25,000+ Families
+                India&apos;s Most Trusted Packers &amp; Movers
               </span>
             </div>
 
-            {/* Heading */}
+            {/* Headline */}
             <h1
-              className="animate-fade-in-up delay-100 text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6"
+              className="animate-fade-in-up delay-100 text-4xl sm:text-5xl lg:text-[3.3rem] font-extrabold text-white leading-tight mb-4"
               style={{ fontFamily: "var(--font-plus-jakarta)" }}
             >
-              Safe & Reliable{" "}
-              <span className="bg-gradient-to-r from-electric-400 to-blue-300 bg-clip-text text-transparent">
-                Packers & Movers
-              </span>{" "}
-              Across India
+              Move Anywhere in{" "}
+              <span className="bg-gradient-to-r from-orange-400 to-orange-300 bg-clip-text text-transparent">
+                India
+              </span>
+              {" "}— Safe &amp; On Time
             </h1>
 
-            <p className="animate-fade-in-up delay-200 text-white/70 text-lg leading-relaxed mb-8 max-w-lg">
-              Expert relocation services for homes, offices, and vehicles. GPS
-              tracking, full insurance, and zero damage guarantee. Serving 500+
-              cities across India.
+            <p className="animate-fade-in-up delay-200 text-white/65 text-base sm:text-lg leading-relaxed mb-7 max-w-xl">
+              Professional packing, GPS-tracked trucks, door-to-door delivery
+              across 500+ cities. Household, office, car &amp; bike shifting — all under one roof.
             </p>
 
-            {/* CTAs */}
-            <div className="animate-fade-in-up delay-300 flex flex-col sm:flex-row gap-3 mb-10">
-              <Link
-                href="/contact#quote-form"
-                className="btn-orange text-base px-7 py-3.5 justify-center"
-              >
-                Get Free Quote
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <a
-                href="tel:+919876543210"
-                className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 bg-white/10 hover:bg-white/15 text-white font-semibold rounded-xl transition-all duration-200 border border-white/20 backdrop-blur-sm text-base"
-              >
-                <Phone className="w-4 h-4" />
-                Call Now: +91 98765 43210
-              </a>
-            </div>
+            {/* ── Inline Quick-Quote Widget ──────────── */}
+            <form
+              onSubmit={handleQuote}
+              className="animate-fade-in-up delay-300 w-full"
+            >
+              <div className="bg-white rounded-2xl shadow-2xl shadow-black/40 overflow-hidden border border-white/10">
+                {/* Title bar */}
+                <div className="bg-orange-500 px-5 py-2.5 flex items-center gap-2">
+                  <Truck className="w-4 h-4 text-white" />
+                  <span className="text-white text-sm font-bold tracking-wide">
+                    GET FREE MOVING QUOTE — INSTANT
+                  </span>
+                </div>
+                {/* Fields */}
+                <div className="flex flex-col sm:flex-row gap-0">
+                  {/* From */}
+                  <div className="flex-1 flex items-center gap-2.5 px-4 py-3.5 border-b sm:border-b-0 sm:border-r border-slate-100">
+                    <MapPin className="w-4 h-4 text-orange-500 shrink-0" />
+                    <div className="flex-1 min-w-0">
+                      <label className="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-0.5">
+                        Moving From
+                      </label>
+                      <select
+                        value={from}
+                        onChange={(e) => setFrom(e.target.value)}
+                        className="w-full text-navy-900 text-sm font-semibold bg-transparent outline-none cursor-pointer"
+                      >
+                        <option value="">Select City</option>
+                        {CITIES.map((c) => <option key={c} value={c}>{c}</option>)}
+                      </select>
+                    </div>
+                  </div>
 
-            {/* Trust badges */}
-            <div className="animate-fade-in delay-400 flex flex-wrap items-center gap-4">
-              {trustBadges.map(({ icon: Icon, text }) => (
-                <div
-                  key={text}
-                  className="flex items-center gap-2 text-white/70"
-                >
-                  <Icon className="w-4 h-4 text-electric-400" />
-                  <span className="text-sm font-medium">{text}</span>
+                  {/* Swap icon */}
+                  <div className="hidden sm:flex items-center justify-center px-2 bg-slate-50">
+                    <div className="w-7 h-7 rounded-full bg-orange-100 flex items-center justify-center">
+                      <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4">
+                        <path d="M3 5h10M10 2l3 3-3 3M13 11H3M6 8l-3 3 3 3" stroke="#f97316" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </div>
+                  </div>
+
+                  {/* To */}
+                  <div className="flex-1 flex items-center gap-2.5 px-4 py-3.5 border-b sm:border-b-0 sm:border-r border-slate-100">
+                    <MapPin className="w-4 h-4 text-blue-500 shrink-0" />
+                    <div className="flex-1 min-w-0">
+                      <label className="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-0.5">
+                        Moving To
+                      </label>
+                      <select
+                        value={to}
+                        onChange={(e) => setTo(e.target.value)}
+                        className="w-full text-navy-900 text-sm font-semibold bg-transparent outline-none cursor-pointer"
+                      >
+                        <option value="">Select City</option>
+                        {CITIES.map((c) => <option key={c} value={c}>{c}</option>)}
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Service */}
+                  <div className="flex-1 flex items-center gap-2.5 px-4 py-3.5 border-b sm:border-b-0 sm:border-r border-slate-100">
+                    <Truck className="w-4 h-4 text-teal-500 shrink-0" />
+                    <div className="flex-1 min-w-0">
+                      <label className="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-0.5">
+                        Service Type
+                      </label>
+                      <select
+                        value={service}
+                        onChange={(e) => setService(e.target.value)}
+                        className="w-full text-navy-900 text-sm font-semibold bg-transparent outline-none cursor-pointer"
+                      >
+                        <option value="">All Services</option>
+                        {SERVICES.map((s) => <option key={s} value={s}>{s}</option>)}
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Submit */}
+                  <button
+                    type="submit"
+                    className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-6 py-4 sm:py-0 flex items-center justify-center gap-2 transition-colors text-sm tracking-wide"
+                  >
+                    Get Quote
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+              <p className="text-white/45 text-xs mt-2.5 pl-1">
+                Free consultation • No hidden charges • Response within 30 minutes
+              </p>
+            </form>
+
+            {/* ── Trust signals ──────────────────────── */}
+            <div className="animate-fade-in delay-400 flex flex-wrap items-center gap-x-5 gap-y-2.5 mt-6">
+              {[
+                { icon: Shield, text: "100% Insured" },
+                { icon: Star, text: "4.9★ Rated" },
+                { icon: CheckCircle2, text: "Zero Damage Guarantee" },
+              ].map(({ icon: Icon, text }) => (
+                <div key={text} className="flex items-center gap-1.5 text-white/65">
+                  <Icon className="w-3.5 h-3.5 text-green-400" />
+                  <span className="text-xs font-medium">{text}</span>
                 </div>
               ))}
             </div>
+
+            {/* ── Call CTA ───────────────────────────── */}
+            <div className="animate-fade-in delay-500 mt-5">
+              <a
+                href="tel:+919876543210"
+                className="inline-flex items-center gap-2.5 bg-white/10 hover:bg-white/15 border border-white/20 text-white font-semibold rounded-xl px-5 py-2.5 text-sm transition-all backdrop-blur-sm"
+              >
+                <span className="flex items-center justify-center w-7 h-7 bg-green-500 rounded-full">
+                  <Phone className="w-3.5 h-3.5 text-white" />
+                </span>
+                Call Now: +91 98765 43210
+                <span className="text-green-400 text-xs ml-0.5">(24/7)</span>
+              </a>
+            </div>
           </div>
 
-          {/* Right — visual card */}
-          <div className="animate-fade-in delay-200 relative hidden lg:block">
-            <div className="relative glass rounded-3xl p-8 border border-white/10">
-              <div className="w-full aspect-[4/3] bg-gradient-to-br from-white/5 to-white/10 rounded-2xl flex items-center justify-center mb-6">
-                <div className="text-center">
-                  <div className="w-24 h-24 mx-auto mb-4 bg-gradient-to-br from-electric-500 to-electric-700 rounded-3xl flex items-center justify-center shadow-2xl shadow-electric-500/40">
-                    <Truck className="w-12 h-12 text-white" />
-                  </div>
-                  <p className="text-white/50 text-sm">Professional Moving Truck</p>
-                  <p className="text-white/30 text-xs mt-1">GPS Tracked</p>
-                </div>
+          {/* ─────────────── RIGHT COLUMN ─────────────── */}
+          <div className="hidden lg:block">
+            <MovingTruck />
+            {/* Route indicator */}
+            <div className="mt-4 flex items-center justify-center gap-3 bg-white/8 backdrop-blur-sm border border-white/12 rounded-2xl px-5 py-3">
+              <div className="flex items-center gap-1.5">
+                <span className="w-2.5 h-2.5 bg-orange-400 rounded-full" style={{ animation: "routeDot 2s ease-in-out infinite" }} />
+                <span className="text-white/80 text-sm font-semibold">New Delhi</span>
               </div>
-
-              <div className="flex items-center gap-3 bg-white/5 rounded-xl px-4 py-3">
-                <div className="flex-1">
-                  <p className="text-white/50 text-xs mb-0.5">From</p>
-                  <p className="text-white font-semibold text-sm">New Delhi</p>
-                </div>
-                <div className="w-8 h-[2px] bg-electric-500/50 relative">
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-electric-500 rounded-full" />
-                </div>
-                <div className="flex-1 text-right">
-                  <p className="text-white/50 text-xs mb-0.5">To</p>
-                  <p className="text-white font-semibold text-sm">Mumbai</p>
-                </div>
+              <div className="flex-1 flex items-center gap-1 px-2">
+                <div className="flex-1 h-px bg-gradient-to-r from-orange-400/60 via-blue-400/60 to-blue-400/60" />
+                <svg viewBox="0 0 20 10" className="w-5 h-2.5">
+                  <path d="M0 5 L12 5 M9 2 L12 5 L9 8" stroke="#60a5fa" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <div className="flex-1 h-px bg-gradient-to-r from-blue-400/60 to-blue-500/60" />
               </div>
+              <div className="flex items-center gap-1.5">
+                <span className="text-white/80 text-sm font-semibold">Mumbai</span>
+                <span className="w-2.5 h-2.5 bg-blue-400 rounded-full" style={{ animation: "routeDot 2s ease-in-out infinite 1s" }} />
+              </div>
+              <span className="ml-2 bg-green-500/20 text-green-400 text-xs font-bold px-2.5 py-0.5 rounded-full border border-green-500/30">
+                GPS Live
+              </span>
             </div>
-
-            {/* Floating cards */}
-            {floatingCards.map((card, i) => (
-              <div
-                key={card.title}
-                className={`animate-fade-in absolute glass border border-white/10 rounded-2xl p-3 flex items-center gap-3 ${
-                  i === 0
-                    ? "-left-10 top-1/4"
-                    : i === 1
-                    ? "-right-8 top-1/2"
-                    : "-left-6 bottom-8"
-                }`}
-                style={{ animationDelay: `${300 + i * 100}ms` }}
-              >
-                <div
-                  className={`w-9 h-9 bg-gradient-to-br ${card.color} rounded-xl flex items-center justify-center shrink-0`}
-                >
-                  <card.icon className="w-4 h-4 text-white" />
-                </div>
-                <div>
-                  <p className="text-white text-xs font-semibold">{card.title}</p>
-                  <p className="text-white/50 text-[10px]">{card.sub}</p>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </div>
 
-      {/* Bottom wave */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <svg viewBox="0 0 1440 60" fill="none" preserveAspectRatio="none" className="w-full h-12 md:h-16">
-          <path d="M0 60L1440 60L1440 0C1200 40 960 60 720 50C480 40 240 10 0 40L0 60Z" fill="#ffffff" />
+      {/* ── Wave divider ────────────────────────────────── */}
+      <div className="absolute bottom-0 left-0 right-0 pointer-events-none">
+        <svg viewBox="0 0 1440 56" fill="none" preserveAspectRatio="none" className="w-full h-10 md:h-14">
+          <path d="M0 56L1440 56L1440 0C1200 36 960 56 720 46C480 36 240 8 0 36L0 56Z" fill="#ffffff" />
         </svg>
       </div>
     </section>

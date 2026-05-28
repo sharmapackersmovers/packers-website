@@ -1,7 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { m } from "framer-motion";
-import { CheckCircle, Package } from "lucide-react";
+import { CheckCircle } from "lucide-react";
+import { siteImages } from "@/data/images";
 
 const highlights = [
   "Founded in 2009 in New Delhi",
@@ -17,51 +19,61 @@ export default function CompanyIntro() {
     <section className="py-20 md:py-28 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left - Image placeholder */}
+
+          {/* Left — image */}
           <m.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 0.5 }}
             className="relative"
           >
-            <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-navy-950 to-navy-800 aspect-[4/3] flex items-center justify-center">
-              <div className="text-center p-10">
-                <div className="w-24 h-24 mx-auto mb-5 bg-gradient-to-br from-electric-500 to-electric-700 rounded-3xl flex items-center justify-center shadow-2xl shadow-electric-500/40">
-                  <Package className="w-12 h-12 text-white" />
-                </div>
-                <p className="text-white/70 text-sm">Our Headquarters</p>
-                <p className="text-white font-semibold mt-1">New Delhi, India</p>
-              </div>
+            {/* Main image */}
+            <div className="relative rounded-3xl overflow-hidden aspect-[4/3] shadow-2xl shadow-slate-200">
+              <Image
+                src={siteImages.aboutTeam}
+                alt="Sharma Packers team at work"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-navy-950/60 via-transparent to-transparent" />
+            </div>
 
-              {/* Floating badge */}
-              <div className="absolute bottom-6 left-6 right-6 glass border border-white/10 rounded-2xl p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-white font-bold text-2xl">15+</p>
-                    <p className="text-white/60 text-xs">Years of Excellence</p>
+            {/* Small inset image */}
+            <div className="absolute -bottom-5 -right-5 w-32 h-32 rounded-2xl overflow-hidden border-4 border-white shadow-xl hidden md:block">
+              <Image
+                src={siteImages.serviceWarehouse}
+                alt="Sharma Packers warehouse"
+                fill
+                className="object-cover"
+                sizes="128px"
+              />
+            </div>
+
+            {/* Stats floating card */}
+            <div className="absolute bottom-6 left-6 glass border border-white/15 rounded-2xl px-5 py-4">
+              <div className="flex items-center gap-5">
+                {[
+                  { val: "15+", label: "Years" },
+                  { val: "25K+", label: "Customers" },
+                  { val: "500+", label: "Cities" },
+                ].map((s, i) => (
+                  <div key={s.label} className={`text-center ${i > 0 ? "pl-5 border-l border-white/20" : ""}`}>
+                    <p className="text-white font-bold text-xl">{s.val}</p>
+                    <p className="text-white/60 text-xs mt-0.5">{s.label}</p>
                   </div>
-                  <div className="w-px h-10 bg-white/10" />
-                  <div>
-                    <p className="text-white font-bold text-2xl">25K+</p>
-                    <p className="text-white/60 text-xs">Happy Families</p>
-                  </div>
-                  <div className="w-px h-10 bg-white/10" />
-                  <div>
-                    <p className="text-white font-bold text-2xl">500+</p>
-                    <p className="text-white/60 text-xs">Cities Served</p>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </m.div>
 
-          {/* Right - Content */}
+          {/* Right — content */}
           <m.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 0.5 }}
           >
             <span className="inline-block text-electric-600 font-semibold text-sm tracking-wider uppercase bg-electric-50 px-4 py-1.5 rounded-full mb-4">
               Our Story
@@ -71,9 +83,9 @@ export default function CompanyIntro() {
               <span className="text-gradient-blue">Driven by Excellence</span>
             </h2>
             <p className="text-slate-600 leading-relaxed mb-5">
-              Sharma Packers & Movers was founded in 2009 with a simple
-              mission: to make relocation stress-free, safe, and affordable for
-              every Indian family and business.
+              Sharma Packers & Movers was founded in 2009 with a simple mission:
+              to make relocation stress-free, safe, and affordable for every
+              Indian family and business.
             </p>
             <p className="text-slate-600 leading-relaxed mb-8">
               What started as a small team of 5 passionate movers has grown into

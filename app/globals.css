@@ -50,6 +50,7 @@
   }
 }
 
+/* ─── Entrance animations ─────────────────────────────── */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -63,6 +64,50 @@
   to   { opacity: 1; transform: translateX(0); }
 }
 
+/* ─── Truck scene animations ──────────────────────────── */
+@keyframes spinWheel {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes moveDash {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-80px); }
+}
+@keyframes floatBox {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%       { transform: translateY(-14px) rotate(3deg); }
+}
+@keyframes floatBox2 {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%       { transform: translateY(-10px) rotate(-2deg); }
+}
+@keyframes smokePuff {
+  0%   { opacity: 0; transform: scale(0.4) translateY(0); }
+  35%  { opacity: 0.4; }
+  100% { opacity: 0; transform: scale(2) translateY(-24px); }
+}
+@keyframes gpsPing {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-6px); }
+}
+@keyframes gpsPingRing {
+  0%   { opacity: 0.6; transform: scale(1); }
+  100% { opacity: 0; transform: scale(2.4); }
+}
+@keyframes truckSlideIn {
+  from { opacity: 0; transform: translateX(-50px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes trustPulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.08); }
+}
+@keyframes routeDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.7); }
+}
+
+/* ─── Animation utility classes ──────────────────────── */
 .animate-fade-in-up {
   animation: fadeInUp 0.5s cubic-bezier(0.25, 0.1, 0.25, 1) both;
 }
@@ -72,6 +117,9 @@
 .animate-slide-in-left {
   animation: slideInLeft 0.5s cubic-bezier(0.25, 0.1, 0.25, 1) both;
 }
+.animate-truck-slide-in {
+  animation: truckSlideIn 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) 0.3s both;
+}
 
 /* Stagger delays */
 .delay-0   { animation-delay: 0ms; }
@@ -80,21 +128,28 @@
 .delay-300 { animation-delay: 300ms; }
 .delay-400 { animation-delay: 400ms; }
 .delay-500 { animation-delay: 500ms; }
+.delay-600 { animation-delay: 600ms; }
 
 /* GPU hint for animated elements */
 .animate-fade-in-up,
 .animate-fade-in,
-.animate-slide-in-left {
+.animate-slide-in-left,
+.animate-truck-slide-in {
   will-change: opacity, transform;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .animate-fade-in-up,
   .animate-fade-in,
-  .animate-slide-in-left {
+  .animate-slide-in-left,
+  .animate-truck-slide-in {
     animation: none;
     opacity: 1;
     transform: none;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }
 
@@ -122,7 +177,18 @@
   }
 
   .hero-gradient {
-    background: linear-gradient(135deg, #0a0f1e 0%, #0f172a 40%, #1e3a8a 100%);
+    /* Warm daytime sky: deep sky → clear sky → horizon orange */
+    background: linear-gradient(135deg, #0c4a6e 0%, #0284c7 30%, #0ea5e9 58%, #f97316 100%);
+  }
+
+  .page-banner-light {
+    /* Light daytime banner for inner pages */
+    background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 30%, #e0f2fe 70%, #f0f9ff 100%);
+  }
+
+  .page-banner-warm {
+    /* Warm orange → sky for inner pages */
+    background: linear-gradient(135deg, #f97316 0%, #fb923c 25%, #0ea5e9 70%, #0284c7 100%);
   }
 
   .section-gradient {

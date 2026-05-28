@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { m, AnimatePresence } from "framer-motion";
-import { Camera, ZoomIn, X } from "lucide-react";
+import { Camera, ZoomIn, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { siteImages } from "@/data/images";
 
 const categories = [
   { id: "all", label: "All" },
@@ -13,28 +15,7 @@ const categories = [
   { id: "vehicle", label: "Vehicle Transport" },
 ];
 
-interface GalleryItem {
-  id: string;
-  category: string;
-  label: string;
-  aspect: string;
-  colors: string;
-}
-
-const galleryItems: GalleryItem[] = [
-  { id: "1", category: "packing", label: "Professional Packing", aspect: "aspect-[4/3]", colors: "from-blue-200 to-blue-300" },
-  { id: "2", category: "loading", label: "Loading Process", aspect: "aspect-square", colors: "from-teal-200 to-teal-300" },
-  { id: "3", category: "transport", label: "Long Distance Move", aspect: "aspect-[4/3]", colors: "from-slate-200 to-slate-300" },
-  { id: "4", category: "office", label: "Office Relocation", aspect: "aspect-[3/4]", colors: "from-purple-200 to-purple-300" },
-  { id: "5", category: "vehicle", label: "Car Transport", aspect: "aspect-[4/3]", colors: "from-orange-200 to-orange-300" },
-  { id: "6", category: "packing", label: "Fragile Item Packing", aspect: "aspect-square", colors: "from-pink-200 to-pink-300" },
-  { id: "7", category: "loading", label: "Heavy Furniture Move", aspect: "aspect-[4/3]", colors: "from-green-200 to-green-300" },
-  { id: "8", category: "transport", label: "Fleet Vehicles", aspect: "aspect-[3/4]", colors: "from-yellow-200 to-yellow-300" },
-  { id: "9", category: "office", label: "Corporate Move", aspect: "aspect-[4/3]", colors: "from-indigo-200 to-indigo-300" },
-  { id: "10", category: "vehicle", label: "Bike Transport", aspect: "aspect-square", colors: "from-red-200 to-red-300" },
-  { id: "11", category: "packing", label: "Electronics Packing", aspect: "aspect-[4/3]", colors: "from-cyan-200 to-cyan-300" },
-  { id: "12", category: "loading", label: "Team at Work", aspect: "aspect-[3/4]", colors: "from-violet-200 to-violet-300" },
-];
+type GalleryItem = (typeof siteImages.gallery)[0];
 
 export default function GalleryContent() {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -42,65 +23,68 @@ export default function GalleryContent() {
 
   const filtered =
     activeCategory === "all"
-      ? galleryItems
-      : galleryItems.filter((item) => item.category === activeCategory);
+      ? siteImages.gallery
+      : siteImages.gallery.filter((item) => item.category === activeCategory);
+
+  const lightboxIndex = lightbox
+    ? filtered.findIndex((i) => i.id === lightbox.id)
+    : -1;
+
+  const navigateLightbox = (dir: number) => {
+    if (lightboxIndex < 0) return;
+    const next = (lightboxIndex + dir + filtered.length) % filtered.length;
+    setLightbox(filtered[next]);
+  };
 
   return (
     <>
       {/* Hero */}
-      <section className="relative pt-24 pb-16 md:pt-32 md:pb-20 hero-gradient overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
-            backgroundSize: "40px 40px",
-          }}
-        />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <m.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 bg-white/10 border border-white/15 rounded-full px-4 py-1.5 mb-6"
-          >
-            <Camera className="w-3.5 h-3.5 text-electric-400" />
-            <span className="text-white/90 text-sm font-medium">
-              Real Moves, Real Stories
-            </span>
-          </m.div>
+      <section className="relative pt-24 pb-0 md:pt-28 overflow-hidden bg-white">
+        {/* Top colour bar */}
+        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-purple-500 via-pink-400 to-orange-500" />
+        {/* Light gradient fill */}
+        <div className="absolute inset-0 page-banner-light" />
+        {/* Decorative circles */}
+        <div className="absolute top-10 right-10 w-64 h-64 bg-purple-200/20 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-10 w-48 h-48 bg-pink-200/20 rounded-full blur-3xl pointer-events-none" />
 
-          <m.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-5 leading-tight"
-            style={{ fontFamily: "var(--font-plus-jakarta)" }}
-          >
-            Our Work in{" "}
-            <span className="bg-gradient-to-r from-electric-400 to-blue-300 bg-clip-text text-transparent">
-              Pictures
-            </span>
-          </m.h1>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 md:pb-16">
+          {/* Breadcrumb */}
+          <nav className="animate-fade-in-up delay-0 flex items-center gap-1.5 text-sm text-slate-400 mb-8 pt-4">
+            <a href="/" className="hover:text-orange-500 transition-colors">🏠 Home</a>
+            <span>›</span>
+            <span className="text-slate-600 font-medium">Gallery</span>
+          </nav>
 
-          <m.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-white/65 text-xl max-w-2xl mx-auto leading-relaxed"
-          >
-            A glimpse into thousands of successful moves we&apos;ve completed
-            across India.
-          </m.p>
+          <div className="text-center max-w-2xl mx-auto">
+            <div className="animate-fade-in-up delay-0 inline-flex items-center gap-2 bg-purple-100 border border-purple-200 rounded-full px-4 py-1.5 mb-5">
+              <Camera className="w-3.5 h-3.5 text-purple-600" />
+              <span className="text-purple-700 text-sm font-semibold">Real Moves, Real Stories</span>
+            </div>
+            <h1
+              className="animate-fade-in-up delay-100 text-4xl sm:text-5xl lg:text-[3.2rem] font-extrabold text-navy-900 leading-tight mb-4"
+              style={{ fontFamily: "var(--font-plus-jakarta)" }}
+            >
+              Our Work in{" "}
+              <span className="bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
+                Pictures
+              </span>
+            </h1>
+            <p className="animate-fade-in-up delay-200 text-slate-500 text-lg leading-relaxed">
+              A glimpse into thousands of successful moves we&apos;ve completed across India.
+            </p>
+          </div>
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 60" fill="none" preserveAspectRatio="none" className="w-full h-10 md:h-14">
-            <path d="M0 60L1440 60L1440 0C1200 40 960 60 720 50C480 40 240 10 0 40L0 60Z" fill="#ffffff" />
+        {/* Bottom wave */}
+        <div className="relative">
+          <svg viewBox="0 0 1440 48" fill="none" preserveAspectRatio="none" className="w-full h-8 md:h-12">
+            <path d="M0 48L1440 48L1440 0C1200 32 960 48 720 40C480 32 240 6 0 30L0 48Z" fill="#ffffff" />
           </svg>
         </div>
       </section>
 
-      {/* Gallery section */}
+      {/* Gallery */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Filters */}
@@ -127,35 +111,43 @@ export default function GalleryContent() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="columns-1 sm:columns-2 lg:columns-3 gap-5 space-y-5"
+              transition={{ duration: 0.25 }}
+              className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4"
             >
               {filtered.map((item, i) => (
                 <m.div
                   key={item.id}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: i * 0.06 }}
+                  transition={{ duration: 0.35, delay: i * 0.05 }}
                   className="break-inside-avoid"
                 >
                   <button
                     onClick={() => setLightbox(item)}
-                    className={`relative w-full ${item.aspect} block group overflow-hidden rounded-2xl bg-gradient-to-br ${item.colors} border border-slate-100`}
+                    className="relative w-full block group overflow-hidden rounded-2xl bg-slate-100"
                     aria-label={`View ${item.label}`}
                   >
-                    {/* Placeholder content */}
-                    <div className="absolute inset-0 flex flex-col items-center justify-center p-6">
-                      <Camera className="w-10 h-10 text-white/40 mb-3" />
-                      <span className="text-white/60 text-sm font-medium text-center">
-                        {item.label}
-                      </span>
+                    <div className={`relative w-full ${i % 3 === 0 ? "aspect-[4/3]" : i % 3 === 1 ? "aspect-square" : "aspect-[3/4]"}`}>
+                      <Image
+                        src={item.url}
+                        alt={item.label}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
                     </div>
 
                     {/* Hover overlay */}
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
+                    <div className="absolute inset-0 bg-navy-950/0 group-hover:bg-navy-950/40 transition-all duration-300 flex items-center justify-center">
                       <div className="scale-0 group-hover:scale-100 transition-transform duration-300 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-xl">
                         <ZoomIn className="w-5 h-5 text-navy-900" />
                       </div>
+                    </div>
+
+                    {/* Label */}
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                      <p className="text-white text-sm font-semibold">{item.label}</p>
+                      <p className="text-white/70 text-xs capitalize">{item.category}</p>
                     </div>
 
                     {/* Category badge */}
@@ -171,9 +163,7 @@ export default function GalleryContent() {
           {filtered.length === 0 && (
             <div className="text-center py-20">
               <Camera className="w-12 h-12 text-slate-300 mx-auto mb-4" />
-              <p className="text-slate-500 font-medium">
-                No images in this category yet.
-              </p>
+              <p className="text-slate-500 font-medium">No images in this category yet.</p>
             </div>
           )}
         </div>
@@ -186,35 +176,54 @@ export default function GalleryContent() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 bg-black/92 flex items-center justify-center p-4"
             onClick={() => setLightbox(null)}
           >
             <m.div
-              initial={{ scale: 0.8, opacity: 0 }}
+              initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
+              exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative max-w-2xl w-full"
+              className="relative max-w-3xl w-full"
               onClick={(e) => e.stopPropagation()}
             >
-              <div
-                className={`w-full aspect-[4/3] rounded-2xl bg-gradient-to-br ${lightbox.colors} flex flex-col items-center justify-center`}
-              >
-                <Camera className="w-16 h-16 text-white/30 mb-4" />
-                <p className="text-white/70 text-lg font-semibold">
-                  {lightbox.label}
-                </p>
-                <p className="text-white/40 text-sm mt-1 capitalize">
-                  {lightbox.category}
-                </p>
+              <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden">
+                <Image
+                  src={lightbox.url}
+                  alt={lightbox.label}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 80vw"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+                  <p className="text-white font-semibold text-lg">{lightbox.label}</p>
+                  <p className="text-white/60 text-sm capitalize">{lightbox.category}</p>
+                </div>
               </div>
 
+              {/* Close */}
               <button
                 onClick={() => setLightbox(null)}
-                className="absolute -top-4 -right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-xl"
+                className="absolute -top-4 -right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-xl hover:bg-slate-100 transition-colors"
                 aria-label="Close"
               >
                 <X className="w-4 h-4 text-slate-700" />
+              </button>
+
+              {/* Prev / Next */}
+              <button
+                onClick={() => navigateLightbox(-1)}
+                className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-colors"
+                aria-label="Previous"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                onClick={() => navigateLightbox(1)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-colors"
+                aria-label="Next"
+              >
+                <ChevronRight className="w-5 h-5" />
               </button>
             </m.div>
           </m.div>
