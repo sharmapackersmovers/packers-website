@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Users, MapPin, Package, Award } from "lucide-react";
 import { useCounterAnimation } from "@/hooks/useCounterAnimation";
 
@@ -21,7 +21,7 @@ const stats = [
     label: "Cities Served",
     description: "Pan-India coverage",
     color: "from-teal-500 to-teal-700",
-    delay: 200,
+    delay: 120,
   },
   {
     icon: Package,
@@ -55,12 +55,12 @@ function StatCard({
   });
 
   return (
-    <motion.div
+    <m.div
       ref={ref as React.RefObject<HTMLDivElement>}
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: stat.delay / 1000 }}
+      transition={{ duration: 0.35, delay: stat.delay / 1000 }}
       className="text-center"
     >
       <div
@@ -76,7 +76,7 @@ function StatCard({
         {stat.label}
       </div>
       <div className="text-white/50 text-sm">{stat.description}</div>
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -95,11 +95,11 @@ export default function StatsSection() {
       <div className="absolute bottom-0 right-1/3 w-48 h-48 bg-blue-400/10 rounded-full blur-3xl" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+        <m.div
+          initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.35 }}
           className="text-center mb-16"
         >
           <span className="inline-block text-electric-400 font-semibold text-sm tracking-wider uppercase bg-electric-600/15 px-4 py-1.5 rounded-full mb-4">
@@ -114,7 +114,7 @@ export default function StatsSection() {
               Our Excellence
             </span>
           </h2>
-        </motion.div>
+        </m.div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-10 md:gap-16">
           {stats.map((stat) => (

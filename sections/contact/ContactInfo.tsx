@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 
 const infoCards = [
@@ -50,9 +50,9 @@ export default function ContactInfo() {
           {infoCards.map((card, i) => {
             const Wrapper = card.href ? "a" : "div";
             return (
-              <motion.div
+              <m.div
                 key={card.title}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.1 }}
@@ -75,7 +75,7 @@ export default function ContactInfo() {
                     </p>
                   ))}
                 </Wrapper>
-              </motion.div>
+              </m.div>
             );
           })}
         </div>

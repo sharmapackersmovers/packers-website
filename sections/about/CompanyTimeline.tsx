@@ -1,17 +1,17 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { companyTimeline } from "@/data/stats";
 
 export default function CompanyTimeline() {
   return (
     <section className="py-20 md:py-28 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+        <m.div
+          initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.35 }}
           className="text-center mb-16"
         >
           <span className="inline-block text-electric-600 font-semibold text-sm tracking-wider uppercase bg-electric-50 px-4 py-1.5 rounded-full mb-4">
@@ -21,7 +21,7 @@ export default function CompanyTimeline() {
             15 Years of{" "}
             <span className="text-gradient-blue">Growth & Excellence</span>
           </h2>
-        </motion.div>
+        </m.div>
 
         <div className="relative">
           {/* Center line */}
@@ -29,12 +29,12 @@ export default function CompanyTimeline() {
 
           <div className="space-y-10">
             {companyTimeline.map((item, i) => (
-              <motion.div
+              <m.div
                 key={item.year}
                 initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
+                transition={{ duration: 0.35, delay: i * 0.1 }}
                 className={`relative flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-10 ${
                   i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
                 }`}
@@ -59,7 +59,7 @@ export default function CompanyTimeline() {
 
                 {/* Spacer */}
                 <div className="hidden md:block flex-1" />
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </div>

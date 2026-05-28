@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { ArrowRight, Phone, Shield, Star, Zap } from "lucide-react";
 
 export default function CTASection() {
@@ -21,24 +21,24 @@ export default function CTASection() {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+        <m.div
+          initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.35 }}
           className="inline-flex items-center gap-2 bg-white/10 border border-white/15 rounded-full px-4 py-1.5 mb-6"
         >
           <Zap className="w-3.5 h-3.5 text-yellow-400" />
           <span className="text-white/90 text-sm font-medium">
             Get a quote in under 30 minutes
           </span>
-        </motion.div>
+        </m.div>
 
-        <motion.h2
-          initial={{ opacity: 0, y: 25 }}
+        <m.h2
+          initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          transition={{ duration: 0.35, delay: 0.1 }}
           className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-5 leading-tight"
           style={{ fontFamily: "var(--font-plus-jakarta)" }}
         >
@@ -46,25 +46,25 @@ export default function CTASection() {
           <span className="text-gradient-blue bg-gradient-to-r from-electric-400 to-blue-300 bg-clip-text text-transparent">
             Safely?
           </span>
-        </motion.h2>
+        </m.h2>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
+        <m.p
+          initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.15 }}
+          transition={{ duration: 0.35, delay: 0.15 }}
           className="text-white/65 text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
         >
           Let our professionals handle your move with care, speed, and complete
           transparency. No hidden charges, guaranteed satisfaction.
-        </motion.p>
+        </m.p>
 
         {/* CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+        <m.div
+          initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          transition={{ duration: 0.35, delay: 0.2 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
         >
           <Link
@@ -81,14 +81,14 @@ export default function CTASection() {
             <Phone className="w-4 h-4" />
             +91 98765 43210
           </a>
-        </motion.div>
+        </m.div>
 
         {/* Trust signals */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          transition={{ duration: 0.35, delay: 0.3 }}
           className="flex flex-wrap items-center justify-center gap-6 md:gap-10"
         >
           {[
@@ -101,7 +101,7 @@ export default function CTASection() {
               <span className="text-sm">{text}</span>
             </div>
           ))}
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

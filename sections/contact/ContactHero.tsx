@@ -1,6 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { MessageSquare } from "lucide-react";
 
 export default function ContactHero() {
@@ -16,40 +13,27 @@ export default function ContactHero() {
       <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-electric-600/15 rounded-full blur-3xl" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 bg-white/10 border border-white/15 rounded-full px-4 py-1.5 mb-6"
-        >
+        <div className="animate-fade-in-up delay-0 inline-flex items-center gap-2 bg-white/10 border border-white/15 rounded-full px-4 py-1.5 mb-6">
           <MessageSquare className="w-3.5 h-3.5 text-electric-400" />
           <span className="text-white/90 text-sm font-medium">
             Get a response within 30 minutes
           </span>
-        </motion.div>
+        </div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-5 leading-tight"
+        <h1
+          className="animate-fade-in-up delay-100 text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-5 leading-tight"
           style={{ fontFamily: "var(--font-plus-jakarta)" }}
         >
           Let&apos;s Plan Your{" "}
           <span className="bg-gradient-to-r from-electric-400 to-blue-300 bg-clip-text text-transparent">
             Perfect Move
           </span>
-        </motion.h1>
+        </h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-white/65 text-xl max-w-2xl mx-auto leading-relaxed"
-        >
+        <p className="animate-fade-in-up delay-200 text-white/65 text-xl max-w-2xl mx-auto leading-relaxed">
           Fill in your details below and get a free, detailed quote. Our team
           will reach out within 30 minutes to assist you.
-        </motion.p>
+        </p>
       </div>
 
       <div className="absolute bottom-0 left-0 right-0">

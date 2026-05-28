@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone, Package, ChevronDown } from "lucide-react";
 
 const navLinks = [
@@ -135,7 +135,7 @@ export default function Navbar() {
       {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileOpen && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
@@ -144,7 +144,7 @@ export default function Navbar() {
           >
             <div className="max-w-7xl mx-auto px-4 py-4 space-y-1">
               {navLinks.map((link, i) => (
-                <motion.div
+                <m.div
                   key={link.href}
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -160,7 +160,7 @@ export default function Navbar() {
                   >
                     {link.label}
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
               <div className="pt-3 pb-1 border-t border-slate-100 flex flex-col gap-2">
                 <a
@@ -178,7 +178,7 @@ export default function Navbar() {
                 </Link>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>

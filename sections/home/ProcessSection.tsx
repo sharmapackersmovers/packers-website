@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { ClipboardList, Package, Truck, CheckCircle } from "lucide-react";
 
 const steps = [
@@ -46,11 +46,11 @@ export default function ProcessSection() {
   return (
     <section className="py-20 md:py-28 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+        <m.div
+          initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.35 }}
           className="text-center mb-16"
         >
           <span className="inline-block text-electric-600 font-semibold text-sm tracking-wider uppercase bg-electric-50 px-4 py-1.5 rounded-full mb-4">
@@ -64,7 +64,7 @@ export default function ProcessSection() {
             A streamlined process designed to make your relocation as smooth and
             stress-free as possible.
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Steps */}
         <div className="relative">
@@ -73,12 +73,12 @@ export default function ProcessSection() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {steps.map((step, i) => (
-              <motion.div
+              <m.div
                 key={step.step}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.12 }}
+                transition={{ duration: 0.35, delay: i * 0.12 }}
                 className="relative text-center group"
               >
                 {/* Step number */}
@@ -106,7 +106,7 @@ export default function ProcessSection() {
                     <div className="w-0.5 h-6 bg-gradient-to-b from-slate-200 to-transparent" />
                   </div>
                 )}
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </div>

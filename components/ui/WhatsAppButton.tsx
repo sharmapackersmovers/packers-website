@@ -1,11 +1,11 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 
 export default function WhatsAppButton() {
   return (
-    <motion.a
+    <m.a
       href="https://wa.me/919876543210?text=Hello%2C%20I%20need%20a%20quote%20for%20moving%20services"
       target="_blank"
       rel="noopener noreferrer"
@@ -20,6 +20,6 @@ export default function WhatsAppButton() {
       {/* Pulse ring */}
       <span className="absolute inset-0 rounded-2xl bg-green-500 animate-ping opacity-25" />
       <MessageCircle className="w-6 h-6 text-white fill-white relative z-10" />
-    </motion.a>
+    </m.a>
   );
 }
