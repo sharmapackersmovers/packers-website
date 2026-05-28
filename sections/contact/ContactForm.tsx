@@ -6,6 +6,7 @@ import {
   Send,
   CheckCircle,
   Loader2,
+  AlertCircle,
   User,
   Phone,
   Mail,
@@ -39,6 +40,13 @@ const serviceOptions = [
   "Commercial Goods Shifting",
 ];
 
+// Encode form data as URL-encoded string for Netlify
+function encode(data: Record<string, string>) {
+  return Object.entries(data)
+    .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`)
+    .join("&");
+}
+
 interface FloatingInputProps {
   id: string;
   label: string;
@@ -48,6 +56,7 @@ interface FloatingInputProps {
   icon: React.ElementType;
   required?: boolean;
   error?: string;
+  name: string;
 }
 
 function FloatingInput({
@@ -59,6 +68,7 @@ function FloatingInput({
   icon: Icon,
   required,
   error,
+  name,
 }: FloatingInputProps) {
   const [focused, setFocused] = useState(false);
   const isActive = focused || value.length > 0;
@@ -71,6 +81,7 @@ function FloatingInput({
         </div>
         <input
           id={id}
+          name={name}
           type={type}
           value={value}
           onChange={(e) => onChange(e.target.value)}
@@ -114,7 +125,8 @@ export default function ContactForm() {
   });
 
   const [errors, setErrors] = useState<Partial<FormData>>({});
-  const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const update = (field: keyof FormData) => (value: string) =>
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -127,8 +139,7 @@ export default function ContactForm() {
     if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
       newErrors.email = "Invalid email address";
     if (!form.pickup.trim()) newErrors.pickup = "Pickup location required";
-    if (!form.destination.trim())
-      newErrors.destination = "Destination required";
+    if (!form.destination.trim()) newErrors.destination = "Destination required";
     if (!form.serviceType) newErrors.serviceType = "Select a service";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -137,17 +148,62 @@ export default function ContactForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
+
     setStatus("loading");
-    await new Promise((r) => setTimeout(r, 2000));
-    setStatus("success");
+    setErrorMessage("");
+
+    try {
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encode({
+          "form-name": "contact",
+          from_name: form.name,
+          phone: form.phone,
+          email: form.email || "Not provided",
+          pickup: form.pickup,
+          destination: form.destination,
+          service_type: form.serviceType,
+          moving_date: form.movingDate || "Not specified",
+          message: form.message || "No additional message",
+        }),
+      });
+
+      if (response.ok) {
+        setStatus("success");
+      } else {
+        throw new Error(`Server responded with ${response.status}`);
+      }
+    } catch (err) {
+      console.error("Form submission error:", err);
+      setStatus("error");
+      setErrorMessage(
+        "Submission failed. Please call us directly at +91 98765 43210 or try again."
+      );
+    }
   };
 
+  const resetForm = () => {
+    setStatus("idle");
+    setForm({
+      name: "",
+      phone: "",
+      email: "",
+      pickup: "",
+      destination: "",
+      serviceType: "",
+      movingDate: "",
+      message: "",
+    });
+  };
+
+  // ── Success state ──────────────────────────────────────────────────────────
   if (status === "success") {
     return (
       <section id="quote-form" className="py-20 section-gradient scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <m.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             className="max-w-lg mx-auto text-center bg-white rounded-3xl p-12 shadow-xl border border-slate-100"
           >
@@ -161,26 +217,12 @@ export default function ContactForm() {
               Request Received!
             </h2>
             <p className="text-slate-500 text-sm leading-relaxed mb-8">
-              Thank you, {form.name}! Our team will call you on{" "}
-              <strong>{form.phone}</strong> within the next 30 minutes with a
-              detailed quote.
+              Thank you, <strong className="text-navy-900">{form.name}</strong>!
+              Our team will call you on{" "}
+              <strong className="text-navy-900">{form.phone}</strong> within the
+              next 30 minutes with a detailed quote.
             </p>
-            <button
-              onClick={() => {
-                setStatus("idle");
-                setForm({
-                  name: "",
-                  phone: "",
-                  email: "",
-                  pickup: "",
-                  destination: "",
-                  serviceType: "",
-                  movingDate: "",
-                  message: "",
-                });
-              }}
-              className="btn-primary justify-center w-full"
-            >
+            <button onClick={resetForm} className="btn-primary justify-center w-full">
               Submit Another Request
             </button>
           </m.div>
@@ -189,13 +231,14 @@ export default function ContactForm() {
     );
   }
 
+  // ── Form ───────────────────────────────────────────────────────────────────
   return (
     <section id="quote-form" className="py-20 md:py-28 section-gradient scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-5 gap-10 items-start">
           {/* Left info */}
           <m.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4 }}
@@ -224,9 +267,7 @@ export default function ContactForm() {
                     <CheckCircle className="w-4 h-4 text-electric-600" />
                   </div>
                   <div>
-                    <p className="font-semibold text-navy-900 text-sm">
-                      {item.title}
-                    </p>
+                    <p className="font-semibold text-navy-900 text-sm">{item.title}</p>
                     <p className="text-slate-500 text-xs">{item.desc}</p>
                   </div>
                 </div>
@@ -236,20 +277,32 @@ export default function ContactForm() {
 
           {/* Form */}
           <m.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4 }}
             className="lg:col-span-3"
           >
             <form
+              name="contact"
+              method="POST"
+              data-netlify="true"
+              data-netlify-honeypot="bot-field"
               onSubmit={handleSubmit}
               className="bg-white rounded-3xl p-8 shadow-xl border border-slate-100 space-y-5"
               noValidate
             >
+              {/* Required hidden fields for Netlify */}
+              <input type="hidden" name="form-name" value="contact" />
+              {/* Honeypot — hidden from humans, catches bots */}
+              <div className="hidden" aria-hidden="true">
+                <input name="bot-field" tabIndex={-1} autoComplete="off" />
+              </div>
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <FloatingInput
                   id="name"
+                  name="from_name"
                   label="Full Name"
                   value={form.name}
                   onChange={update("name")}
@@ -259,6 +312,7 @@ export default function ContactForm() {
                 />
                 <FloatingInput
                   id="phone"
+                  name="phone"
                   label="Phone Number"
                   type="tel"
                   value={form.phone}
@@ -271,6 +325,7 @@ export default function ContactForm() {
 
               <FloatingInput
                 id="email"
+                name="email"
                 label="Email Address (optional)"
                 type="email"
                 value={form.email}
@@ -282,6 +337,7 @@ export default function ContactForm() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <FloatingInput
                   id="pickup"
+                  name="pickup"
                   label="Pickup Location"
                   value={form.pickup}
                   onChange={update("pickup")}
@@ -291,6 +347,7 @@ export default function ContactForm() {
                 />
                 <FloatingInput
                   id="destination"
+                  name="destination"
                   label="Destination"
                   value={form.destination}
                   onChange={update("destination")}
@@ -307,6 +364,7 @@ export default function ContactForm() {
                     <Package className="w-4 h-4" />
                   </div>
                   <select
+                    name="service_type"
                     value={form.serviceType}
                     onChange={(e) => update("serviceType")(e.target.value)}
                     className={`w-full h-12 pl-10 pr-4 text-sm border rounded-xl outline-none transition-all duration-200 bg-white appearance-none ${
@@ -315,24 +373,19 @@ export default function ContactForm() {
                         : "border-slate-200 focus:border-electric-500 focus:ring-2 focus:ring-electric-100"
                     } ${!form.serviceType ? "text-slate-400" : "text-slate-900"}`}
                   >
-                    <option value="" disabled>
-                      Service Type *
-                    </option>
+                    <option value="" disabled>Service Type *</option>
                     {serviceOptions.map((o) => (
-                      <option key={o} value={o}>
-                        {o}
-                      </option>
+                      <option key={o} value={o}>{o}</option>
                     ))}
                   </select>
                   {errors.serviceType && (
-                    <p className="mt-1 text-xs text-red-500">
-                      {errors.serviceType}
-                    </p>
+                    <p className="mt-1 text-xs text-red-500">{errors.serviceType}</p>
                   )}
                 </div>
 
                 <FloatingInput
                   id="movingDate"
+                  name="moving_date"
                   label="Moving Date"
                   type="date"
                   value={form.movingDate}
@@ -347,7 +400,7 @@ export default function ContactForm() {
                   <MessageSquare className="w-4 h-4" />
                 </div>
                 <textarea
-                  id="message"
+                  name="message"
                   value={form.message}
                   onChange={(e) => update("message")(e.target.value)}
                   rows={3}
@@ -355,6 +408,14 @@ export default function ContactForm() {
                   className="w-full pt-4 pb-3 pl-10 pr-4 text-sm border border-slate-200 rounded-xl outline-none focus:border-electric-500 focus:ring-2 focus:ring-electric-100 transition-all duration-200 resize-none placeholder:text-slate-400"
                 />
               </div>
+
+              {/* Error banner */}
+              {status === "error" && (
+                <div className="flex items-start gap-3 bg-red-50 border border-red-100 rounded-xl px-4 py-3">
+                  <AlertCircle className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
+                  <p className="text-red-700 text-sm">{errorMessage}</p>
+                </div>
+              )}
 
               <button
                 type="submit"
@@ -375,8 +436,7 @@ export default function ContactForm() {
               </button>
 
               <p className="text-center text-xs text-slate-400">
-                By submitting, you agree to our Privacy Policy. We never share
-                your data.
+                By submitting, you agree to our Privacy Policy. We never share your data.
               </p>
             </form>
           </m.div>

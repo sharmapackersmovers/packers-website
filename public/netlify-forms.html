@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head><title>Netlify Forms Detection</title></head>
+  <body>
+    <!--
+      This file exists solely so Netlify's build bot can detect the form.
+      The actual submission is handled by the React ContactForm component.
+    -->
+    <form
+      name="contact"
+      data-netlify="true"
+      data-netlify-honeypot="bot-field"
+      hidden
+    >
+      <input type="hidden" name="form-name" value="contact" />
+      <input type="text"   name="bot-field" />
+      <input type="text"   name="from_name" />
+      <input type="tel"    name="phone" />
+      <input type="email"  name="email" />
+      <input type="text"   name="pickup" />
+      <input type="text"   name="destination" />
+      <input type="text"   name="service_type" />
+      <input type="date"   name="moving_date" />
+      <textarea            name="message"></textarea>
+    </form>
+  </body>
+</html>
